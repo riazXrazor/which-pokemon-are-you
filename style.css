@@ -70,10 +70,6 @@ body {
     width: 60px;
     margin: 0 auto;
     padding-bottom: 30px;
-    /* bottom: 30px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%); */
     justify-content: center;
    align-items: center;
 }
@@ -85,7 +81,6 @@ body {
 
 #touchId img {
   width: 60px;
-  /* margin-top: 20px; */
 }
 
 #pokemon-sprite{

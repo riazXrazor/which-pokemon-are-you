@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POKEMON</title>
+    <title>Which pokemon are you ?</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -13,10 +13,9 @@
 
 
     <div id="app">
-        <h1 id="page-title">Check Which pokemon are you ?</h1>
+        <h1 id="page-title">Which pokemon are you ?</h1>
         <div id="card">
-            <img id="pokemon-sprite"
-                src="images/placeholder.jpg" />
+            <img id="pokemon-sprite" src="images/placeholder.jpg" />
         </div>
 
         <div id="sometext">
@@ -25,8 +24,7 @@
         </div>
 
         <div id="touchId">
-            <img id="fingerprintImg" src="images/fp.png"
-                alt="Finger-Print" />
+            <img id="fingerprintImg" src="images/fp.png" alt="Finger-Print" />
         </div>
     </div>
     <div id="loader-overlay">
@@ -58,10 +56,14 @@
         let timer;
         const touchduration = 500; //length of time we want the user to touch before we do something
 
+        const LS = window.localStorage;
+        const NAME_KEY = 'pokemons-name'
+        const ID_KEY = 'pokemons-image'
+
         function touchstart(e) {
             e.preventDefault();
             fingerprintImg.style.cssText = `
-                transition: all ${touchduration/1000}s ease;
+                transition: all ${touchduration / 1000}s ease;
                 transform: scale(1.8) rotate(60deg);
             `;
             if (!timer) {
@@ -101,17 +103,24 @@
             allpokedex = await allpokedex.json();
         }
 
-        async function getMyPokemon(cb) {
+        function getMyPokemon(cb) {
+            let pokemon = {}
+            let pokemonInfo = {}
             try {
                 pokemonImg.style.display = 'none';
-                const pokemon = allpokedex[Math.floor(Math.random() * allpokedex.length)]
-                const pokemonInfo = await P.getPokemonByName(pokemon.name.replace('\'', '').toLowerCase())
-                console.log(pokemonInfo)
-                youtext.textContent = "You are"
-                pokemonName.textContent = pokemon.name;
-                pokemonImg.setAttribute('src', `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id}.png`)
-                pokemonImg.style.display = 'block';
-                if (cb) cb();
+                setTimeout(async () => {
+                    if (!LS.getItem(NAME_KEY)) {
+                        pokemon = allpokedex[Math.floor(Math.random() * allpokedex.length)]
+                        pokemonInfo = await P.getPokemonByName(pokemon.name.replace('\'', '').toLowerCase())
+                        LS.setItem(NAME_KEY, pokemon.name)
+                        LS.setItem(ID_KEY, pokemonInfo.id)
+                    }
+                    youtext.textContent = "You are"
+                    pokemonName.textContent = pokemon.name || LS.getItem(NAME_KEY);
+                    pokemonImg.setAttribute('src', `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id || LS.getItem(ID_KEY)}.png`)
+                    pokemonImg.style.display = 'block';
+                    if (cb) cb();
+                }, 3000)
             } catch (e) {
                 if (e.message.includes('404')) {
                     getMyPokemon(cb)
