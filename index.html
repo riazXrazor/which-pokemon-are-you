@@ -6,7 +6,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Which pokemon are you ?</title>
+    <link rel="shortcut icon" type="image/png" href="/images/manifest-icon-72.png" />
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="/manifest.json">
+    <!-- Splash Screen for iPhone X (1125px x 2436px) -->
+    <link rel="apple-touch-startup-image"
+        media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+        href="/images/apple-splash-1125-2436.png">
+    <!-- iPhone X (1125px x 2436px) -->
+    <link rel="apple-touch-startup-image"
+        media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+        href="/images/apple-splash-1125-2436.png">
+    <!-- iPhone 8, 7, 6s, 6 (750px x 1334px) -->
+    <link rel="apple-touch-startup-image"
+        media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
+        href="/images/apple-splash-750-1334.png">
+    <!-- iPhone 8 Plus, 7 Plus, 6s Plus, 6 Plus (1242px x 2208px) -->
+    <link rel="apple-touch-startup-image"
+        media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)"
+        href="/images/apple-splash-1242-2208.png">
+    <!-- iPhone 5 (640px x 1136px) -->
+    <link rel="apple-touch-startup-image"
+        media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
+        href="/images/apple-splash-640-1136.png">
+    <!-- iPad Mini, Air (1536px x 2048px) -->
+    <link rel="apple-touch-startup-image"
+        media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)"
+        href="/images/apple-splash-1536-2048.png">
+    <!-- iPad Pro 10.5" (1668px x 2224px) -->
+    <link rel="apple-touch-startup-image"
+        media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)"
+        href="/images/apple-splash-1668-2224.png">
+    <!-- iPad Pro 12.9" (2048px x 2732px) -->
+    <link rel="apple-touch-startup-image"
+        media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"
+        href="/images/apple-splash-2048-2732.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 </head>
 
 <body>
@@ -18,7 +53,7 @@
             made for fun with 💖 by Riaz Laskar
         </div>
         <div id="card">
-            <img id="pokemon-sprite" src="images/placeholder.jpg" />
+            <img id="pokemon-sprite" src="/images/placeholder.jpg" />
         </div>
 
         <div id="sometext">
@@ -27,16 +62,16 @@
         </div>
 
         <div id="touchId">
-            <img id="fingerprintImg" src="images/fp.png" alt="Finger-Print" />
+            <img id="fingerprintImg" src="/images/fp.png" alt="Finger-Print" />
         </div>
-  
+
     </div>
     <div id="loader-overlay">
         <div class="img">
-            <img src="images/coorzzz.gif" />
+            <img src="/images/coorzzz.gif" />
         </div>
         <div class="img">
-            <img src="images/pikachuloader.gif" />
+            <img src="/images/pikachuloader.gif" />
         </div>
     </div>
     <script src="https://unpkg.com/pokeapi-js-wrapper/dist/index.js"></script>

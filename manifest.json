@@ -1,0 +1,51 @@
+{
+    "name": "Which pokemon are you ?",
+    "short_name": "WhichPokemonAreYou",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#EB2F24",
+    "theme_color": "#EB2F24",
+    "orientation": "portrait-primary",
+    "icons": [
+      {
+        "src": "/images/manifest-icon-72.png",
+        "type": "image/png",
+        "sizes": "72x72"
+      },
+      {
+        "src": "/images/manifest-icon-96.png",
+        "type": "image/png",
+        "sizes": "96x96"
+      },
+      {
+        "src": "/images/manifest-icon-128.png",
+        "type": "image/png",
+        "sizes": "128x128"
+      },
+      {
+        "src": "/images/manifest-icon-144.png",
+        "type": "image/png",
+        "sizes": "144x144"
+      },
+      {
+        "src": "/images/manifest-icon-152.png",
+        "type": "image/png",
+        "sizes": "152x152"
+      },
+      {
+        "src": "/images/manifest-icon-192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "/images/manifest-icon-384.png",
+        "type": "image/png",
+        "sizes": "384x384"
+      },
+      {
+        "src": "/images/manifest-icon-512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ]
+   }
