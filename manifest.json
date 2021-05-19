@@ -3,7 +3,7 @@
     "short_name": "WhichPokemonAreYou",
     "start_url": "/index.html",
     "display": "standalone",
-    "background_color": "#EB2F24",
+    "background_color": "#FFFFFF",
     "theme_color": "#EB2F24",
     "orientation": "portrait-primary",
     "icons": [
