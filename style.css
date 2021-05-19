@@ -1,0 +1,115 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:400,500,600,700);
+#app, #loader-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+* {
+  box-sizing: border-box;
+  text-align: center;
+  text-decoration: none;
+}
+body {
+  background: #f2f2f2;
+  font-family: Poppins, sans-serif;
+}
+#app {
+    display: flex;
+    flex-direction: column;
+}
+#app,#loader-overlay {
+  width: 98vw;
+  height: 98vh;
+  background: #fff;
+  box-shadow: 0 10px 40px -5px rgba(0, 0, 0, 0.2);
+}
+#app #card {
+  max-width: 90%;
+  border-radius: 5px;
+  margin: 14px auto 20px auto;
+  color: #fff;
+  transition: 0.3s cubic-bezier(0.52, -0.55, 0.42, 1.7);
+  /* height: 290px; */
+  flex:1;
+  /* background-color: #2a98ff; */
+  justify-content: center;
+  align-items: center;
+}
+#app #card:hover {
+  transform: scale(1.2);
+  transform-origin: 50% 100%;
+}
+#app #card p {
+  font-size: 12px;
+  float: left;
+  margin: 5px 0 0 20px;
+}
+#app #card p#name {
+  clear: left;
+  margin-top: 20px;
+  font-size: 18px;
+}
+#app #pokemon-name {
+  font-size: 28px;
+  font-weight: 600;
+  color: #2a98ff;
+  height: 42px;
+}
+#app #youtext {
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 20px;
+  color: #ccc;
+  justify-content: center;
+  align-items: center;
+}
+#touchId {
+    width: 60px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    /* bottom: 30px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); */
+    justify-content: center;
+   align-items: center;
+}
+
+#sometext{
+    width: 100%;
+    flex:1
+}
+
+#touchId img {
+  width: 60px;
+  /* margin-top: 20px; */
+}
+
+#pokemon-sprite{
+    height: auto;
+    width: 100%;
+}
+
+#page-title{
+    font-size: 4.5vw;
+}
+
+#loader-overlay{
+ z-index: 999;
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+ background-color: #F7F7F9;
+}
+
+
+
+#loader-overlay img{
+ width: 100%;
+ height: auto;
+}
+
+#loader-overlay .img{
+ flex:1;
+}
