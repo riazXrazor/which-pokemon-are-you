@@ -229,8 +229,8 @@
 
             html2canvas(document.getElementById("app")).then(function (canvas) {
                 share.style.display = 'flex';
-
-                if (navigator.share) {
+                window.open(canvas.toDataURL("image/jpeg", 0.9));
+                /* if (navigator.share) {
                     navigator.share({
                         title: `Which Pokemon Are You ?`,
                         text: `Hi, i am ${LS.getItem(NAME_KEY)}, which pokemon are you find out at ${window.location.origin}`,
@@ -241,7 +241,7 @@
                     .catch(e => alert(`error: ${e.message}`));
                 } else {
                     window.open(canvas.toDataURL("image/jpeg", 0.9));
-                }
+                } */
 
             });
 
