@@ -66,7 +66,7 @@ body {
   justify-content: center;
   align-items: center;
 }
-#touchId, #share {
+#touchId, #share, #screenshot {
     width: 60px;
     margin: 0 auto;
     padding-bottom: 30px;
@@ -103,7 +103,7 @@ body {
 
 
 
-#loader-overlay img, #share img{
+#loader-overlay img, #share img, #screenshot img{
  width: 100%;
  height: auto;
 }
@@ -121,6 +121,15 @@ body {
     color:#ccc;
 }
 
-#share{
+
+
+#share-box{
   display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+#share-box{
+  font-size: 0.6em;
+  text-align: center;
 }

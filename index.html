@@ -65,8 +65,15 @@
             <img id="fingerprintImg" src="/images/fp.png" alt="Finger-Print" />
         </div>
 
-        <div id="share">
-            <img src="/images/share.png" alt="share" />
+        <div id="share-box">
+            <div id="share">
+                <img src="/images/share.png" alt="share" />
+                <span>share</span>
+            </div>
+            <div id="screenshot">
+                <img src="/images/screenshot.png" alt="share" />
+                <span>image</span>
+            </div>
         </div>
 
     </div>
@@ -79,7 +86,7 @@
         </div>
     </div>
     <script src="https://unpkg.com/pokeapi-js-wrapper/dist/index.js"></script>
-    <!-- <script src="/html2canvas.js"></script> -->
+    <script src="/html2canvas.js"></script>
     <script>
         window.mobileAndTabletCheck = function () {
             let check = false;
@@ -94,6 +101,8 @@
         const loader = document.querySelector("#loader-overlay")
         const touchId = document.querySelector("#touchId")
         const share = document.querySelector("#share")
+        const sharebox = document.querySelector("#share-box")
+        const screenshot = document.querySelector("#screenshot")
         const pagetitle = document.querySelector("#page-title")
         const fingerprintImg = document.querySelector("#fingerprintImg")
 
@@ -130,7 +139,7 @@
             showLoader();
             await getMyPokemon(() => {
                 touchId.style.display = 'none';
-                share.style.display = 'flex';
+                sharebox.style.display = 'flex';
                 hideLoader();
             });
         };
@@ -221,7 +230,7 @@
                 if (urlParams.has('myPokemon')) {
                     await getMyPokemon(() => {
                         touchId.style.display = 'none';
-                        share.style.display = 'flex';
+                        sharebox.style.display = 'flex';
                         hideLoader();
                     }, atob(urlParams.get('myPokemon')));
                 } else {
@@ -233,6 +242,7 @@
             touchId.addEventListener("touchstart", touchstart, false);
             touchId.addEventListener("touchend", touchend, false);
             share.addEventListener("click", shareIt)
+            screenshot.addEventListener("click", takeScreenshot)
         });
 
 
@@ -252,35 +262,28 @@
                 alert("Your browser is too old, does not support share.")
             }
 
-            // let html2canvasOptions = {
-            //     allowTaint: true,
-            //     removeContainer: true,
-            //     backgroundColor: null,
-            //     imageTimeout: 15000,
-            //     logging: true,
-            //     scale: 2,
-            //     useCORS: true
-            // };
+            
 
-            /* html2canvas(document.getElementById("app"), html2canvasOptions ).then(function (canvas) {
-                share.style.display = 'flex';
+        }
+
+        function takeScreenshot() {
+            sharebox.style.display = 'none';
+            let html2canvasOptions = {
+                allowTaint: true,
+                removeContainer: true,
+                backgroundColor: null,
+                imageTimeout: 15000,
+                logging: true,
+                scale: 2,
+                useCORS: true
+            };
+
+            html2canvas(document.getElementById("app"), html2canvasOptions ).then(function (canvas) {
+                sharebox.style.display = 'flex';
                 const contentDataURL = canvas.toDataURL('image/png')
-        
-                if (navigator.share) {
-                    navigator.share({
-                        title: `Which Pokemon Are You ?`,
-                        text: `Hi, i am ${LS.getItem(NAME_KEY)}, which pokemon are you find out at ${window.location.origin}`,
-                        url: contentDataURL
-                    }).then(() => {
-                        alert(`Thanks for sharing!`)
-                    })
-                        .catch(e => alert(`error: ${e.message}`));
-                } else {
-                    alert("Your browser is too old, does not support share.")
-                }
+                window.open(contentDataURL);
 
-            }).catch(e => alert(`error: ${e.message}`)); */
-
+            }).catch(e => alert(`error: ${e.message}`));
         }
 
     </script>
