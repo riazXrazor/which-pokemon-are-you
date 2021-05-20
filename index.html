@@ -262,11 +262,15 @@
                 alert("Your browser is too old, does not support share.")
             }
 
-            
+
 
         }
 
         function takeScreenshot() {
+            const vport = document.querySelector('meta[name="viewport"]')
+            if (window.innerWidth < 1024) {
+                vport.setAttribute("content", "width=1200px");
+            }
             sharebox.style.display = 'none';
             let html2canvasOptions = {
                 allowTaint: true,
@@ -278,9 +282,12 @@
                 useCORS: true
             };
 
-            html2canvas(document.getElementById("app"), html2canvasOptions ).then(function (canvas) {
+            html2canvas(document.getElementById("app"), html2canvasOptions).then(function (canvas) {
                 sharebox.style.display = 'flex';
-                const contentDataURL = canvas.toDataURL('image/png')
+                const contentDataURL = canvas.toDataURL('image/png');
+                if (window.innerWidth < 1024) {
+                    vport.setAttribute("content", "width=device-width, initial-scale=1");
+                }
                 window.open(contentDataURL);
 
             }).catch(e => alert(`error: ${e.message}`));
