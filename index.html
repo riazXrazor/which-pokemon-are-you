@@ -244,7 +244,7 @@
                 navigator.share({
                     title: `Which Pokemon Are You ?`,
                     text: `Hi, my pokemon is ${LS.getItem(NAME_KEY)}(${window.location.origin}?myPokemon=${btoa(LS.getItem(NAME_KEY))}), which pokemon are you find out.`,
-                    url: `${window.location.origin}?myPokemon=${btoa(LS.getItem(NAME_KEY))}`
+                    url: `${window.location.origin}`
                 }).then(() => {
                     alert(`Thanks for sharing!`)
                 }).catch(e => console.log(`error: ${e.message}`));
