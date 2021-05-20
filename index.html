@@ -65,6 +65,10 @@
             <img id="fingerprintImg" src="/images/fp.png" alt="Finger-Print" />
         </div>
 
+        <div id="share">
+            <img src="/images/share.png" alt="share" />
+        </div>
+
     </div>
     <div id="loader-overlay">
         <div class="img">
@@ -75,6 +79,7 @@
         </div>
     </div>
     <script src="https://unpkg.com/pokeapi-js-wrapper/dist/index.js"></script>
+    <script src="/html2canvas.js"></script>
     <script>
         window.mobileAndTabletCheck = function () {
             let check = false;
@@ -88,6 +93,7 @@
         const youtext = document.querySelector("#youtext")
         const loader = document.querySelector("#loader-overlay")
         const touchId = document.querySelector("#touchId")
+        const share = document.querySelector("#share")
         const pagetitle = document.querySelector("#page-title")
         const fingerprintImg = document.querySelector("#fingerprintImg")
 
@@ -123,6 +129,8 @@
             timer = null;
             showLoader();
             await getMyPokemon(() => {
+                touchId.style.display = 'none';
+                share.style.display = 'flex';
                 hideLoader();
             });
         };
@@ -142,6 +150,19 @@
             allpokedex = await allpokedex.json();
         }
 
+        const getBase64FromUrl = async (url) => {
+            const data = await fetch(url);
+            const blob = await data.blob();
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(blob);
+                reader.onloadend = () => {
+                    const base64data = reader.result;
+                    resolve(base64data);
+                }
+            });
+        }
+
         function getMyPokemon(cb) {
             let pokemon = {}
             let pokemonInfo = {}
@@ -156,7 +177,8 @@
                     }
                     youtext.textContent = "You are"
                     pokemonName.textContent = pokemon.name || LS.getItem(NAME_KEY);
-                    pokemonImg.setAttribute('src', `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id || LS.getItem(ID_KEY)}.png`)
+                    const imgurl = await getBase64FromUrl(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id || LS.getItem(ID_KEY)}.png`)
+                    pokemonImg.setAttribute('src', imgurl)
                     pokemonImg.style.display = 'block';
                     if (cb) cb();
                 }, 3000)
@@ -196,6 +218,33 @@
             touchId.addEventListener("touchend", touchend, false);
         });
 
+        share.addEventListener("click", shareIt)
+
+        function shareIt() {
+
+
+
+            window.scrollTo(0, 0);
+            share.style.display = 'none';
+
+            html2canvas(document.getElementById("app")).then(function (canvas) {
+                share.style.display = 'flex';
+
+                if (navigator.share) {
+                    navigator.share({
+                        title: `Hi, i am ${LS.getItem(NAME_KEY)}, which pokemon are you find out at ${window.location.origin}`,
+                        url: canvas.toDataURL("image/jpeg", 0.9)
+                    }).then(() => {
+                        console.log('Thanks for sharing!');
+                    })
+                        .catch(console.error);
+                } else {
+                    window.open(canvas.toDataURL("image/jpeg", 0.9));
+                }
+
+            });
+
+        }
 
     </script>
 </body>
