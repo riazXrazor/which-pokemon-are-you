@@ -229,12 +229,11 @@
             if (navigator.share) {
                 navigator.share({
                     title: `Which Pokemon Are You ?`,
-                    text: `Hi, i am ${LS.getItem(NAME_KEY)}, which pokemon are you find out at ${window.location.origin}`,
+                    text: `Hi, my pokemon name is ${LS.getItem(NAME_KEY)}, which pokemon are you find out.`,
                     url: window.location.origin
                 }).then(() => {
                     alert(`Thanks for sharing!`)
-                })
-                    .catch(e => alert(`error: ${e.message}`));
+                }).catch(e => console.log(`error: ${e.message}`));
             } else {
                 alert("Your browser is too old, does not support share.")
             }
