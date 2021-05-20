@@ -251,19 +251,22 @@
             html2canvas(document.getElementById("app"), html2canvasOptions ).then(function (canvas) {
                 share.style.display = 'flex';
                 const contentDataURL = canvas.toDataURL('image/png')
-                window.open(contentDataURL);
-               /*  if (navigator.share) {
+           /*      const w = window.open();
+                const img = new Image();
+                img.src = contentDataURL;
+                w.body.appendChild(img); */
+                if (navigator.share) {
                     navigator.share({
                         title: `Which Pokemon Are You ?`,
                         text: `Hi, i am ${LS.getItem(NAME_KEY)}, which pokemon are you find out at ${window.location.origin}`,
-                        url: canvas.toDataURL("image/jpeg", 0.9)
+                        url: contentDataURL
                     }).then(() => {
                         alert(`Thanks for sharing!`)
                     })
                         .catch(e => alert(`error: ${e.message}`));
                 } else {
                     alert("Your browser is too old, does not support share.")
-                } */
+                }
 
             }).catch(e => alert(`error: ${e.message}`));
 
