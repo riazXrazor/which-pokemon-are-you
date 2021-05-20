@@ -79,7 +79,7 @@
         </div>
     </div>
     <script src="https://unpkg.com/pokeapi-js-wrapper/dist/index.js"></script>
-    <script src="/html2canvas.js"></script>
+    <!-- <script src="/html2canvas.js"></script> -->
     <script>
         window.mobileAndTabletCheck = function () {
             let check = false;
@@ -163,21 +163,25 @@
             });
         }
 
-        function getMyPokemon(cb) {
+        function getMyPokemon(cb, myPokemon) {
             let pokemon = {}
             let pokemonInfo = {}
             try {
                 pokemonImg.style.display = 'none';
                 setTimeout(async () => {
-                    if (!LS.getItem(NAME_KEY)) {
+                    if (!myPokemon && !LS.getItem(NAME_KEY)) {
                         pokemon = allpokedex[Math.floor(Math.random() * allpokedex.length)]
                         pokemonInfo = await P.getPokemonByName(pokemon.name.replace('\'', '').toLowerCase())
                         LS.setItem(NAME_KEY, pokemon.name)
                         LS.setItem(ID_KEY, pokemonInfo.id)
                     }
+
+                    if (myPokemon) {
+                        pokemon = allpokedex.find(p => p.name == myPokemon)
+                        pokemonInfo = await P.getPokemonByName(myPokemon.replace('\'', '').toLowerCase())
+                    }
                     youtext.textContent = "You are"
                     pokemonName.textContent = pokemon.name || LS.getItem(NAME_KEY);
-                    // const imgurl = await getBase64FromUrl(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id || LS.getItem(ID_KEY)}.png`)
                     pokemonImg.setAttribute('src', `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id || LS.getItem(ID_KEY)}.png`)
                     pokemonImg.style.display = 'block';
                     if (cb) cb();
@@ -210,8 +214,20 @@
             }
 
             await getAllPokemons();
+
+
             setTimeout(async () => {
-                hideLoader();
+                const urlParams = new URLSearchParams(location.search);
+                if (urlParams.has('myPokemon')) {
+                    await getMyPokemon(() => {
+                        touchId.style.display = 'none';
+                        share.style.display = 'flex';
+                        hideLoader();
+                    }, atob(urlParams.get('myPokemon')));
+                } else {
+                    hideLoader();
+                }
+
             }, 1000);
 
             touchId.addEventListener("touchstart", touchstart, false);
@@ -223,38 +239,33 @@
 
         function shareIt() {
 
-            window.scrollTo(0, 0);
-            share.style.display = 'none';
+            console.log(`${window.location.origin}?myPokemon=${btoa(LS.getItem(NAME_KEY))}`)
+            if (navigator.share) {
+                navigator.share({
+                    title: `Which Pokemon Are You ?`,
+                    text: `Hi, my pokemon is ${LS.getItem(NAME_KEY)}(${window.location.origin}?myPokemon=${btoa(LS.getItem(NAME_KEY))}), which pokemon are you find out.`,
+                    url: `${window.location.origin}?myPokemon=${btoa(LS.getItem(NAME_KEY))}`
+                }).then(() => {
+                    alert(`Thanks for sharing!`)
+                }).catch(e => console.log(`error: ${e.message}`));
+            } else {
+                alert("Your browser is too old, does not support share.")
+            }
 
-            /*       if (navigator.share) {
-                      navigator.share({
-                          title: `Which Pokemon Are You ?`,
-                          text: `Hi, my pokemon name is ${LS.getItem(NAME_KEY)}, which pokemon are you find out.`,
-                          url: window.location.origin
-                      }).then(() => {
-                          alert(`Thanks for sharing!`)
-                      }).catch(e => console.log(`error: ${e.message}`));
-                  } else {
-                      alert("Your browser is too old, does not support share.")
-                  } */
+            // let html2canvasOptions = {
+            //     allowTaint: true,
+            //     removeContainer: true,
+            //     backgroundColor: null,
+            //     imageTimeout: 15000,
+            //     logging: true,
+            //     scale: 2,
+            //     useCORS: true
+            // };
 
-            let html2canvasOptions = {
-                allowTaint: true,
-                removeContainer: true,
-                backgroundColor: null,
-                imageTimeout: 15000,
-                logging: true,
-                scale: 2,
-                useCORS: true
-            };
-
-            html2canvas(document.getElementById("app"), html2canvasOptions ).then(function (canvas) {
+            /* html2canvas(document.getElementById("app"), html2canvasOptions ).then(function (canvas) {
                 share.style.display = 'flex';
                 const contentDataURL = canvas.toDataURL('image/png')
-           /*      const w = window.open();
-                const img = new Image();
-                img.src = contentDataURL;
-                w.body.appendChild(img); */
+        
                 if (navigator.share) {
                     navigator.share({
                         title: `Which Pokemon Are You ?`,
@@ -268,7 +279,7 @@
                     alert("Your browser is too old, does not support share.")
                 }
 
-            }).catch(e => alert(`error: ${e.message}`));
+            }).catch(e => alert(`error: ${e.message}`)); */
 
         }
 
