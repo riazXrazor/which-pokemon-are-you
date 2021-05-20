@@ -230,7 +230,7 @@
                 if (urlParams.has('myPokemon')) {
                     await getMyPokemon(() => {
                         touchId.style.display = 'none';
-                        sharebox.style.display = 'flex';
+                        // sharebox.style.display = 'flex';
                         hideLoader();
                     }, atob(urlParams.get('myPokemon')));
                 } else {
