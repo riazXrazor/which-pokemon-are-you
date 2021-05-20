@@ -177,8 +177,8 @@
                     }
                     youtext.textContent = "You are"
                     pokemonName.textContent = pokemon.name || LS.getItem(NAME_KEY);
-                    const imgurl = await getBase64FromUrl(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id || LS.getItem(ID_KEY)}.png`)
-                    pokemonImg.setAttribute('src', imgurl)
+                    // const imgurl = await getBase64FromUrl(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id || LS.getItem(ID_KEY)}.png`)
+                    pokemonImg.setAttribute('src', `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id || LS.getItem(ID_KEY)}.png`)
                     pokemonImg.style.display = 'block';
                     if (cb) cb();
                 }, 3000)
