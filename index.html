@@ -222,15 +222,21 @@
 
         function shareIt() {
 
-
-
             window.scrollTo(0, 0);
             share.style.display = 'none';
 
-            html2canvas(document.getElementById("app")).then(function (canvas) {
+            navigator.share({
+                        title: `Which Pokemon Are You ?`,
+                        text: `Hi, i am ${LS.getItem(NAME_KEY)}, which pokemon are you find out at ${window.location.origin}`,
+                        url: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${LS.getItem(ID_KEY)}.png`
+                    }).then(() => {
+                        alert(`Thanks for sharing!`)
+                    })
+
+            /* html2canvas(document.getElementById("app")).then(function (canvas) {
                 share.style.display = 'flex';
                 window.open(canvas.toDataURL("image/jpeg", 0.9));
-                /* if (navigator.share) {
+                if (navigator.share) {
                     navigator.share({
                         title: `Which Pokemon Are You ?`,
                         text: `Hi, i am ${LS.getItem(NAME_KEY)}, which pokemon are you find out at ${window.location.origin}`,
@@ -241,9 +247,9 @@
                     .catch(e => alert(`error: ${e.message}`));
                 } else {
                     window.open(canvas.toDataURL("image/jpeg", 0.9));
-                } */
+                } 
 
-            });
+            }); */
 
         }
 
