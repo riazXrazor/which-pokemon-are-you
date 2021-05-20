@@ -223,25 +223,36 @@
 
         function shareIt() {
 
-            /* window.scrollTo(0, 0);
-            share.style.display = 'none'; */
+            window.scrollTo(0, 0);
+            share.style.display = 'none';
 
-            if (navigator.share) {
-                navigator.share({
-                    title: `Which Pokemon Are You ?`,
-                    text: `Hi, my pokemon name is ${LS.getItem(NAME_KEY)}, which pokemon are you find out.`,
-                    url: window.location.origin
-                }).then(() => {
-                    alert(`Thanks for sharing!`)
-                }).catch(e => console.log(`error: ${e.message}`));
-            } else {
-                alert("Your browser is too old, does not support share.")
-            }
+            /*       if (navigator.share) {
+                      navigator.share({
+                          title: `Which Pokemon Are You ?`,
+                          text: `Hi, my pokemon name is ${LS.getItem(NAME_KEY)}, which pokemon are you find out.`,
+                          url: window.location.origin
+                      }).then(() => {
+                          alert(`Thanks for sharing!`)
+                      }).catch(e => console.log(`error: ${e.message}`));
+                  } else {
+                      alert("Your browser is too old, does not support share.")
+                  } */
 
-            /* html2canvas(document.getElementById("app")).then(function (canvas) {
+            let html2canvasOptions = {
+                allowTaint: true,
+                removeContainer: true,
+                backgroundColor: null,
+                imageTimeout: 15000,
+                logging: true,
+                scale: 2,
+                useCORS: true
+            };
+
+            html2canvas(document.getElementById("app"), html2canvasOptions ).then(function (canvas) {
                 share.style.display = 'flex';
-                window.open(canvas.toDataURL("image/jpeg", 0.9));
-                 if (navigator.share) {
+                const contentDataURL = canvas.toDataURL('image/png')
+                window.open(contentDataURL);
+               /*  if (navigator.share) {
                     navigator.share({
                         title: `Which Pokemon Are You ?`,
                         text: `Hi, i am ${LS.getItem(NAME_KEY)}, which pokemon are you find out at ${window.location.origin}`,
@@ -249,12 +260,12 @@
                     }).then(() => {
                         alert(`Thanks for sharing!`)
                     })
-                    .catch(e => alert(`error: ${e.message}`));
+                        .catch(e => alert(`error: ${e.message}`));
                 } else {
-                   alert("Your browser is too old, does not support share.")
-                } 
+                    alert("Your browser is too old, does not support share.")
+                } */
 
-            }); */
+            }).catch(e => alert(`error: ${e.message}`));
 
         }
 
