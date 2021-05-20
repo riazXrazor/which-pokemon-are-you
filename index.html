@@ -232,12 +232,13 @@
 
                 if (navigator.share) {
                     navigator.share({
-                        title: `Hi, i am ${LS.getItem(NAME_KEY)}, which pokemon are you find out at ${window.location.origin}`,
+                        title: `Which Pokemon Are You ?`,
+                        text: `Hi, i am ${LS.getItem(NAME_KEY)}, which pokemon are you find out at ${window.location.origin}`,
                         url: canvas.toDataURL("image/jpeg", 0.9)
                     }).then(() => {
-                        console.log('Thanks for sharing!');
+                        alert(`Thanks for sharing!`)
                     })
-                        .catch(console.error);
+                    .catch(e => alert(`error: ${e.message}`));
                 } else {
                     window.open(canvas.toDataURL("image/jpeg", 0.9));
                 }
