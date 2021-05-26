@@ -267,24 +267,44 @@
         }
 
         function takeScreenshot() {
-            
+
             sharebox.style.display = 'none';
             let html2canvasOptions = {
                 allowTaint: true,
                 removeContainer: true,
                 backgroundColor: null,
                 imageTimeout: 15000,
-                logging: true,
-                scale: 2,
+                // logging: true,
+                // scale: 3,
                 useCORS: true
             };
 
             html2canvas(document.getElementById("app"), html2canvasOptions).then(function (canvas) {
                 sharebox.style.display = 'flex';
                 const contentDataURL = canvas.toDataURL('image/png');
-                window.open(contentDataURL);
+                //alert(contentDataURL.slice(0, 30))
+                newtab(contentDataURL);
 
             }).catch(e => alert(`error: ${e.message}`));
+        }
+
+        function newtab(url) {
+            var w = window.open('about:blank');
+
+            setTimeout(function () { //FireFox seems to require a setTimeout for this to work.
+                const iframe = w.document.createElement('iframe')
+                iframe.width = '100%';
+                iframe.height = '100%';
+                iframe.frameborder = '0';
+                iframe.scrolling = 'no';
+                iframe.scroll = '100%';
+                w.document.body.style.cssText =`
+                 margin:0;
+                 padding:0;
+                `;
+                w.document.body.appendChild(iframe)
+                    .src = url;
+            }, 0);
         }
 
     </script>
