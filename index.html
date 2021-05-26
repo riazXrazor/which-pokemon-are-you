@@ -283,7 +283,7 @@
                 sharebox.style.display = 'flex';
                 const contentDataURL = canvas.toDataURL('image/png');
                 //alert(contentDataURL.slice(0, 30))
-                newtab(contentDataURL);
+                downloadFile(LS.getItem(NAME_KEY), contentDataURL);
 
             }).catch(e => alert(`error: ${e.message}`));
         }
@@ -305,6 +305,13 @@
                 w.document.body.appendChild(iframe)
                     .src = url;
             }, 0);
+        }
+
+        function downloadFile(fileName,linkSource) {
+            const downloadLink = document.createElement("a");
+            downloadLink.href = linkSource;
+            downloadLink.download = fileName;
+            downloadLink.click();
         }
 
     </script>
